@@ -1,0 +1,146 @@
+CARTI - Glo
+	Tap Jump OFF
+
+Ukemi - Bob
+	Tap Jump OFF
+
+(._.) - Bird
+	Default
+
+ANT - Ant
+	X - Down Taunt
+
+CHIMP - Ant
+	X - Down Taunt
+	Tap Jump OFF
+
+j - Bongo
+	X - Side Taunt
+
+SGrTF - Aidan
+	R - Jump
+	Y - Up Taunt
+	Tap Jump OFF
+
+Wah - Twisty
+	Default
+
+CUFF - Bubbles
+	All taunts set to NONE
+	X - Up Taunt
+	Tap Jump OFF
+
+BUNS - Glutes
+	CStick - Charge
+	X - Up Taunt
+	Tap Jump OFF
+
+Grape - L_Pag
+	R - Attack
+	X - Down Taunt
+	Tap Jump OFF
+
+??? - Mr. W&L
+	X - Up Taunt
+	Tap Jump OFF
+
+JONNY - Guttey
+	Z - Jump
+	Y - Grab
+
+WATER - Rongunshu
+	Tap Jump OFF
+
+qt(downarrow) - Jo
+	X - Side Taunt
+	Tap Jump OFF
+
+TUPAC - Krump
+	Y - Side Taunt
+
+Brika - Boiko
+	R - Jump
+	X - None
+	Tap Jump OFF
+
+Saber - Sugar
+	Rumble on
+	Y - Side Taunt
+
+EPYON - Nave
+	Tap Jump OFF
+
+bgh - Dotcom
+	R - Attack
+	X - Down Taunt
+	Tap Jump OFF
+
+420IQ - Narq
+	Default
+	
+(stango's circle thing) - Stango
+	L - Down Taunt
+
+KIP - Kip
+	Rumble on
+	L - Jump
+	X - Side Taunt
+	Tap Jump OFF
+
+F77 - Ferrari77
+	Default
+
+MaN - Mangachu
+	CStick - Charge
+	X - Down Taunt
+
+Fable - Fable
+	Tap Jump OFF
+
+Pog - Envy
+	Tap Jump OFF
+	CStick - Charge
+
+42069 - Switch
+	L - Up Taunt
+
+Swach - Switch
+	L - Up Taunt
+	Tap Jump OFF
+
+Tavi - Tavi
+	L - Up Taunt
+	X - Grab
+	
+WWW. - Woody
+	Z - Up Taunt
+	L - Attack
+	X - Grab
+	CStick - Tilt
+	
+MARY - Ronan
+	Default
+
+Jhin - Jaden
+	L - Jump
+	Y - Up Taunt
+	Tap Jump OFF
+
+.. - DVD
+	R - Side Taunt
+	Dpad Up - Jump
+	Dpad Side - Up Taunt
+	Y - Special
+	Tap Jump OFF
+
+SHEK - Guttey
+	Z - Jump
+	CStick - Tilt
+	Y - Grab
+
+Z%pal - Frost
+	R - Special
+	X - Side Taunt
+
+<-CS2-> - Glo
+	Tap Jump OFF
