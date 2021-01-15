@@ -58,7 +58,7 @@ qt(downarrow) - Jo
 TUPAC - Krump
 	Y - Side Taunt
 
-Brika - Boiko
+YumiZ - Boiko
 	R - Jump
 	X - None
 	Tap Jump OFF
