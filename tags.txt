@@ -46,6 +46,7 @@ Grape - L_Pag
 
 JONNY - Guttey
 	Z - Jump
+	CStick - Tilt
 	Y - Grab
 
 WATER - Rongunshu
@@ -132,11 +133,6 @@ Jhin - Jaden
 	Dpad Side - Up Taunt
 	Y - Special
 	Tap Jump OFF
-
-SHEK - Guttey
-	Z - Jump
-	CStick - Tilt
-	Y - Grab
 
 Z%pal - Frost
 	R - Special
