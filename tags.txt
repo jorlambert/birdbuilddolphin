@@ -89,7 +89,8 @@ KIP - Kip
 	Tap Jump OFF
 
 F77 - Ferrari77
-	Default
+	CStick - Tilt
+	Tap Jump OFF
 
 MaN - Mangachu
 	CStick - Charge
