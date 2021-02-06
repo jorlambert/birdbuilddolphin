@@ -46,7 +46,6 @@ Grape - L_Pag
 
 JONNY - Guttey
 	Z - Jump
-	CStick - Tilt
 	Y - Grab
 
 WATER - Rongunshu
