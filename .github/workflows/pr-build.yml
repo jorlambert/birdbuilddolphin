@@ -76,6 +76,7 @@ jobs:
           copy /b /v /y "Bird's Replay Manager.exe" ${{ github.workspace }}\Binary\x64\
       - name: "Prepare Artifact"
         working-directory: ${{ github.workspace }}
+        shell: cmd
         run: |
           xcopy /E /V /Y /I .\User .\Binary\x64\User
           xcopy /E /V /Y /I .\Sys .\Binary\x64\Sys
