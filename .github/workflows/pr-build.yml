@@ -48,21 +48,11 @@ jobs:
           git clone https://github.com/jlambert360/Ishiiruka
           del ${{ github.workspace }}\Ishiiruka\Installer\Dolphin.ico
           copy /b /v /y ${{ github.workspace }}\Resources\Dolphin.ico ${{ github.workspace }}\Ishiiruka\Installer\
-      - name: "Replace Discord ID"
-        uses: frabert/replace-string-action@v1.2
-        with:
-          string: '622143930900807680'
-          replace-with: '641740042007740456'
-      - name: "Replace Version Number"
-        uses: frabert/replace-string-action@v1.2
-        with:
-          string: 'FPM v2'
-          replace-with: 'Bird Build v4'
-      - name: "Replace Json Link"
-        uses: frabert/replace-string-action@v1.2
-        with:
-          string: 'https://projectplusgame.com/update.json'
-          replace-with: 'https://raw.githubusercontent.com/Birdthulu/birdthulu.github.io/master/birdbuild.json'
+      - name: "Replace IDs"
+        working-directory: ${{ github.workspace }}
+        shell: powershell
+        run: |
+          .\Resources\IDs.ps1
       - name: "Build Dolphin"
         shell: cmd
         run: |
