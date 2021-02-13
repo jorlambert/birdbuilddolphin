@@ -50,19 +50,19 @@ jobs:
           copy /b /v /y ${{ github.workspace }}\Resources\Dolphin.ico ${{ github.workspace }}\Ishiiruka\Installer\
       - name: "Replace Discord ID"
         uses: jacobtomlinson/gha-find-replace@master
-        with:
+        with: 
           find: "Discord_Initialize("622143930900807680", &handlers, 1, nullptr);"
           replace: "Discord_Initialize("641740042007740456", &handlers, 1, nullptr);"
           include: "Ishiiruka/Source/Core/UICommon/DiscordPresence.cpp"
       - name: "Replace Version Number"
         uses: jacobtomlinson/gha-find-replace@master
-        with:
+        with: 
           find: "#define VERSION_STR "FPM v2"
           replace: "#define VERSION_STR "Bird Build v4"
           include: "Ishiiruka/Source/Core/Common/Version.cpp"
       - name: "Replace Json Link"
         uses: jacobtomlinson/gha-find-replace@master
-        with:
+        with: 
           find: "std::string url = "https://projectplusgame.com/update.json";"
           replace: "std::string url = "https://raw.githubusercontent.com/Birdthulu/birdthulu.github.io/master/birdbuild.json";"
           include: "Ishiiruka/Source/Core/DolphinWX/Main.cpp"
