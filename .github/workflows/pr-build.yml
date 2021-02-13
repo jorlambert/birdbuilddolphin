@@ -49,23 +49,20 @@ jobs:
           del ${{ github.workspace }}\Ishiiruka\Installer\Dolphin.ico
           copy /b /v /y ${{ github.workspace }}\Resources\Dolphin.ico ${{ github.workspace }}\Ishiiruka\Installer\
       - name: "Replace Discord ID"
-        uses: jacobtomlinson/gha-find-replace@master
+        uses: frabert/replace-string-action@v1.2
         with:
-          find: "622143930900807680"
-          replace: "641740042007740456"
-          include: "Ishiiruka/Source/Core/UICommon/DiscordPresence.cpp"
+          string: '622143930900807680'
+          replace-with: '641740042007740456'
       - name: "Replace Version Number"
-        uses: jacobtomlinson/gha-find-replace@master
+        uses: frabert/replace-string-action@v1.2
         with:
-          find: "FPM v2"
-          replace: "Bird Build v4"
-          include: "Ishiiruka/Source/Core/Common/Version.cpp"
+          string: 'FPM v2'
+          replace-with: 'Bird Build v4'
       - name: "Replace Json Link"
-        uses: jacobtomlinson/gha-find-replace@master
+        uses: frabert/replace-string-action@v1.2
         with:
-          find: "https://projectplusgame.com/update.json"
-          replace: "https://raw.githubusercontent.com/Birdthulu/birdthulu.github.io/master/birdbuild.json"
-          include: "Ishiiruka/Source/Core/DolphinWX/Main.cpp"
+          string: 'https://projectplusgame.com/update.json'
+          replace-with: 'https://raw.githubusercontent.com/Birdthulu/birdthulu.github.io/master/birdbuild.json'
       - name: "Build Dolphin"
         shell: cmd
         run: |
