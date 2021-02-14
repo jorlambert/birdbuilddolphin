@@ -1,3 +1,0 @@
-(Get-Content ${{ github.workspace }}\Ishiiruka\Source\Core\UICommon\DiscordPresence.cpp) -replace '622143930900807680', '641740042007740456' | Out-File -encoding ASCII ${{ github.workspace }}\Ishiiruka\Source\Core\UICommon\DiscordPresence.cpp)
-(Get-Content ${{ github.workspace }}\Ishiiruka\Source\Core\DolphinWX\Main.cpp) -replace 'https://projectplusgame.com/update.json', 'https://raw.githubusercontent.com/Birdthulu/birdthulu.github.io/master/birdbuild.json' | Out-File -encoding ASCII ${{ github.workspace }}\Ishiiruka\Source\Core\DolphinWX\Main.cpp)
-(Get-Content ${{ github.workspace }}\Ishiiruka\Source\Core\Common\Version.cpp) -replace 'FPM v2', 'Bird Build v4' | Out-File -encoding ASCII ${{ github.workspace }}\Ishiiruka\Source\Core\Common\Version.cpp)
