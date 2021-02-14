@@ -30,8 +30,7 @@ jobs:
           prop_path: 'version'
       - run: |
           echo ${{steps.pplus_version.outputs.prop}}
-          echo "PPlusVersion=${{ steps.pplus_version.outputs.prop }}" >> $GITHUB_ENV
-          echo "Version is ${{ env.PPlusVersion }}"
+          echo "Version is ${{ steps.pplus_version.outputs.prop }}"
       - name: "Get PPlus Changelog"
         id: pplus_changelog
         uses: notiz-dev/github-action-json-property@release
@@ -40,8 +39,7 @@ jobs:
           prop_path: 'changelog'
       - run: |
           echo ${{steps.pplus_changelog.outputs.prop}}
-          echo "PPlusChangelog=${{ steps.pplus_changelog.outputs.prop }}" >> $GITHUB_ENV
-          echo "Changelog is ${{ env.PPlusChangelog }}"
+          echo "Changelog is ${{ steps.pplus_changelog.outputs.prop }}"
       - name: "Get Bird Build Version"
         id: birdbuild_version
         uses: notiz-dev/github-action-json-property@release
@@ -50,8 +48,7 @@ jobs:
           prop_path: 'version'
       - run: |
           echo ${{steps.birdbuild_version.outputs.prop}}
-          echo "BirdBuildVersion=${{ steps.birdbuild_version.outputs.prop }}" >> $GITHUB_ENV
-          echo "Version is ${{ env.BirdBuildVersion }}"
+          echo "Version is ${{steps.birdbuild_version.outputs.prop}}"
       - name: "Get Bird Build Changelog"
         id: birdbuild_changelog
         uses: notiz-dev/github-action-json-property@release
@@ -60,8 +57,7 @@ jobs:
           prop_path: 'changelog'
       - run: |
           echo ${{steps.birdbuild_changelog.outputs.prop}}
-          echo "BirdBuildChangelog=${{ steps.birdbuild_changelog.outputs.prop }}" >> $GITHUB_ENV
-          echo "Changelog is ${{ env.BirdBuildChangelog }}"
+          echo "Changelog is ${{steps.birdbuild_changelog.outputs.prop}}"
       - name: "Checkout"
         uses: actions/checkout@v2.3.1
       - name: "Remove Redistributable"
@@ -100,7 +96,7 @@ jobs:
         run: |
           (Get-Content ${{ github.workspace }}\Ishiiruka\Source\Core\UICommon\DiscordPresence.cpp) -replace '622143930900807680', '641740042007740456' | Out-File -encoding ASCII ${{ github.workspace }}\Ishiiruka\Source\Core\UICommon\DiscordPresence.cpp
           (Get-Content ${{ github.workspace }}\Ishiiruka\Source\Core\DolphinWX\Main.cpp) -replace 'https://projectplusgame.com/update.json', 'https://raw.githubusercontent.com/Birdthulu/birdthulu.github.io/master/birdbuild.json' | Out-File -encoding ASCII ${{ github.workspace }}\Ishiiruka\Source\Core\DolphinWX\Main.cpp
-          (Get-Content ${{ github.workspace }}\Ishiiruka\Source\Core\Common\Version.cpp) -replace "${{ env.PPlusVersion }}", "${{ env.BirdBuildVersion }}" | Out-File -encoding ASCII ${{ github.workspace }}\Ishiiruka\Source\Core\Common\Version.cpp
+          (Get-Content ${{ github.workspace }}\Ishiiruka\Source\Core\Common\Version.cpp) -replace '${{ steps.pplus_version.outputs.prop }}', '${{ steps.birdbuild_version.outputs.prop }}' | Out-File -encoding ASCII ${{ github.workspace }}\Ishiiruka\Source\Core\Common\Version.cpp
       - name: "Build Dolphin"
         shell: cmd
         run: |
@@ -164,8 +160,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: "${{ env.BirdBuildVersion }}"
-          release_name: "Release ${{ env.BirdBuildVersion }}"
-          body: "${{ env.BirdBuildChangelog }} \n${{ env.PPlusChangelog }}"
+          tag_name: "${{ steps.birdbuild_version.outputs.prop }}"
+          release_name: "Release ${{ steps.birdbuild_version.outputs.prop }}"
+          body: "${{ steps.birdbuild_changelog.outputs.prop }} \n${{ steps.pplus_changelog.outputs.prop }}"
           draft: false
           prerelease: false
