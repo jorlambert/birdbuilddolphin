@@ -32,15 +32,6 @@ jobs:
       - run: |
           echo ${{steps.pplus_version.outputs.prop}}
 
-      - name: "Get PPlus Changelog"
-        id: pplus_changelog
-        uses: notiz-dev/github-action-json-property@release
-        with:
-          path: 'update.json'
-          prop_path: 'changelog'
-      - run: |
-          echo ${{steps.pplus_changelog.outputs.prop}}
-
       - name: "Get Bird Build Version"
         id: birdbuild_version
         uses: notiz-dev/github-action-json-property@release
@@ -67,15 +58,6 @@ jobs:
           index_of_str: "Bird Build "
       - run: |
           echo ${{steps.birdbuild_id2.outputs.substring}}
-
-      - name: "Get Bird Build Changelog"
-        id: birdbuild_changelog
-        uses: notiz-dev/github-action-json-property@release
-        with:
-          path: 'birdbuild.json'
-          prop_path: 'changelog'
-      - run: |
-          echo ${{steps.birdbuild_changelog.outputs.prop}}
 
       - name: "Checkout"
         uses: actions/checkout@v2.3.1
@@ -189,7 +171,7 @@ jobs:
         with:
           tag_name: "${{ steps.birdbuild_id2.outputs.substring }}"
           release_name: "${{ steps.birdbuild_version.outputs.prop }}"
-          body: "${{ steps.birdbuild_changelog.outputs.prop }} \n${{ steps.pplus_changelog.outputs.prop }}"
+          body: "${{steps.birdbuild_version.outputs.prop}}"
           draft: false
           prerelease: false
 
@@ -207,6 +189,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "${{github.workspace}}/artifact/Bird Build.zip"
+          asset_path: "${{ github.workspace }}/artifact/Bird Build.zip"
           asset_name: "Bird Build.zip"
           asset_content_type: application/zip
