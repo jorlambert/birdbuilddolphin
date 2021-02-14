@@ -23,7 +23,7 @@ jobs:
           curl -X POST -H 'Content-type: application/json' --data "{"version":$PPlusVersion}" https://projectplusgame.com/update.json
           PPlusChangelog="${{ env.PPlusChangelog }}" && echo $PPlusChangelog \ &&
           curl -X POST -H 'Content-type: application/json' --data "{"changelog":$PPlusChangelog}" https://projectplusgame.com/update.json
-      - id: "Get Bird Build Version"
+      - name: "Get Bird Build Version"
         run: |
           BirdBuildVersion="${{ env.BirdBuildVersion }}" && echo $BirdBuildVersion \ &&
           curl -X POST -H 'Content-type: application/json' --data "{"version":$BirdBuildVersion}" https://raw.githubusercontent.com/jlambert360/birdthulu.github.io/master/birdbuild.json
