@@ -52,9 +52,16 @@ jobs:
         with:
           _input-text: '${{steps.birdbuild_version.outputs.prop}}'
           Bird Build: ""
-          BETA: ""
       - run: |
           echo ${{ steps.birdbuild_id.outputs.result }}
+      - name: "Get Bird Build ID Substring"
+        id: birdbuild_id2
+        uses: bluwy/substitute-string-action@v1
+        with:
+          _input-text: '${{ steps.birdbuild_id.outputs.result }}'
+          BETA: ""
+      - run: |
+          echo ${{ steps.birdbuild_id2.outputs.result }}
       - name: "Get Bird Build Changelog"
         id: birdbuild_changelog
         uses: notiz-dev/github-action-json-property@release
@@ -165,7 +172,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: "${{ steps.birdbuild_id.outputs.result }}"
+          tag_name: "${{ steps.birdbuild_id2.outputs.result }}"
           release_name: "${{ steps.birdbuild_version.outputs.prop }}"
           body: "${{ steps.birdbuild_changelog.outputs.prop }} \n${{ steps.pplus_changelog.outputs.prop }}"
           draft: false
