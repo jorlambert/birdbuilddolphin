@@ -51,17 +51,17 @@ jobs:
         uses: bluwy/substitute-string-action@v1
         with:
           _input-text: '${{steps.birdbuild_version.outputs.prop}}'
-          "Bird Build": ""
+          Beta: ""
       - run: |
           echo ${{ steps.birdbuild_id.outputs.result }}
       - name: "Get Bird Build ID Substring"
+        uses: bhowell2/github-substring-action@v1.0.0
         id: birdbuild_id2
-        uses: bluwy/substitute-string-action@v1
         with:
-          _input-text: '${{ steps.birdbuild_id.outputs.result }}'
-          BETA: ""
+          value: ${{ steps.birdbuild_id.outputs.result }}
+          index_of_str: "Bird Build "
       - run: |
-          echo ${{ steps.birdbuild_id2.outputs.result }}
+          echo ${{steps.birdbuild_id2.outputs.substring}}
       - name: "Get Bird Build Changelog"
         id: birdbuild_changelog
         uses: notiz-dev/github-action-json-property@release
