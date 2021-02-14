@@ -22,6 +22,7 @@ jobs:
         run: |
           Invoke-WebRequest -Uri https://raw.githubusercontent.com/jlambert360/birdthulu.github.io/master/birdbuild.json -UseBasicParsing -OutFile "birdbuild.json"
           Invoke-WebRequest -Uri https://projectplusgame.com/update.json -UseBasicParsing -OutFile "update.json"
+
       - name: "Get PPlus Version"
         id: pplus_version
         uses: notiz-dev/github-action-json-property@release
@@ -30,6 +31,7 @@ jobs:
           prop_path: 'version'
       - run: |
           echo ${{steps.pplus_version.outputs.prop}}
+
       - name: "Get PPlus Changelog"
         id: pplus_changelog
         uses: notiz-dev/github-action-json-property@release
@@ -38,6 +40,7 @@ jobs:
           prop_path: 'changelog'
       - run: |
           echo ${{steps.pplus_changelog.outputs.prop}}
+
       - name: "Get Bird Build Version"
         id: birdbuild_version
         uses: notiz-dev/github-action-json-property@release
@@ -46,6 +49,7 @@ jobs:
           prop_path: 'version'
       - run: |
           echo ${{steps.birdbuild_version.outputs.prop}}
+
       - name: "Get Bird Build ID"
         id: birdbuild_id
         uses: bluwy/substitute-string-action@v1
@@ -54,6 +58,7 @@ jobs:
           Beta:
       - run: |
           echo ${{ steps.birdbuild_id.outputs.result }}
+
       - name: "Get Bird Build ID Substring"
         uses: bhowell2/github-substring-action@v1.0.0
         id: birdbuild_id2
@@ -62,6 +67,7 @@ jobs:
           index_of_str: "Bird Build "
       - run: |
           echo ${{steps.birdbuild_id2.outputs.substring}}
+
       - name: "Get Bird Build Changelog"
         id: birdbuild_changelog
         uses: notiz-dev/github-action-json-property@release
@@ -70,31 +76,38 @@ jobs:
           prop_path: 'changelog'
       - run: |
           echo ${{steps.birdbuild_changelog.outputs.prop}}
+
       - name: "Checkout"
         uses: actions/checkout@v2.3.1
+
       - name: "Remove Redistributable"
         shell: cmd
         run: |
           MsiExec.exe /passive /X{F0C3E5D1-1ADE-321E-8167-68EF0DE699A5}
           MsiExec.exe /passive /X{1D8E6291-B0D5-35EC-8441-6616F567A0F7}
           mkdir .\Tools\DX
+
       - name: "Setup MSBuild"
         uses: microsoft/setup-msbuild@v1
+
       - name: "Cache DXSDK_Jun10.exe"
         uses: actions/cache@v2
         with:
           path: ./Tools/DX/
           key: ${{ runner.os }}
+
       - name: "Download DirectX SDK"
         working-directory: ${{ github.workspace }}
         shell: powershell
         run: |
           if (!(Test-Path ".\Tools\DX\DXSDK_Jun10.exe" -PathType Leaf)) { Invoke-WebRequest -Uri https://github.com/project-slippi/Ishiiruka/releases/download/v2.2.5/DXSDK_Jun10.exe -UseBasicParsing -OutFile ".\Tools\DX\DXSDK_Jun10.exe" }
+
       - name: "Install DirectX SDK"
         working-directory: ${{ github.workspace }}
         shell: cmd
         run: |
           .\Tools\DX\DXSDK_Jun10.exe /U /F
+
       - name: "Clone Dolphin"
         shell: cmd
         run: |
@@ -102,6 +115,7 @@ jobs:
           git clone https://github.com/jlambert360/Ishiiruka
           del ${{ github.workspace }}\Ishiiruka\Installer\Dolphin.ico
           copy /b /v /y ${{ github.workspace }}\Resources\Dolphin.ico ${{ github.workspace }}\Ishiiruka\Installer\
+
       - name: "Replace IDs"
         working-directory: ${{ github.workspace }}
         shell: powershell
@@ -109,16 +123,19 @@ jobs:
           (Get-Content ${{ github.workspace }}\Ishiiruka\Source\Core\UICommon\DiscordPresence.cpp) -replace '622143930900807680', '641740042007740456' | Out-File -encoding ASCII ${{ github.workspace }}\Ishiiruka\Source\Core\UICommon\DiscordPresence.cpp
           (Get-Content ${{ github.workspace }}\Ishiiruka\Source\Core\DolphinWX\Main.cpp) -replace 'https://projectplusgame.com/update.json', 'https://raw.githubusercontent.com/Birdthulu/birdthulu.github.io/master/birdbuild.json' | Out-File -encoding ASCII ${{ github.workspace }}\Ishiiruka\Source\Core\DolphinWX\Main.cpp
           (Get-Content ${{ github.workspace }}\Ishiiruka\Source\Core\Common\Version.cpp) -replace '${{steps.pplus_version.outputs.prop}}', '${{steps.birdbuild_version.outputs.prop}}' | Out-File -encoding ASCII ${{ github.workspace }}\Ishiiruka\Source\Core\Common\Version.cpp
+
       - name: "Build Dolphin"
         shell: cmd
         run: |
           msbuild /p:Configuration=Release /p:Platform=x64 "${{ github.workspace }}\Ishiiruka\Source\Dolphin.sln"
           cd Ishiiruka\Binary\x64\
           copy /b /v /y Dolphin.exe ${{ github.workspace }}\Binary\x64\
+
       - name: "Setup Nuget.exe"
         uses: nuget/setup-nuget@v1
         with:
           nuget-version: '5.x'
+
       - name: "Build Updater"
         working-directory: ${{ github.workspace }}
         shell: cmd
@@ -129,6 +146,7 @@ jobs:
           msbuild /p:Configuration=Release /p:Platform="Any CPU" ${{ github.workspace }}\FPM-Win-Updater\DolphinUpdater.sln
           cd DolphinUpdater\bin\Release
           copy /b /v /y Updater.exe ${{ github.workspace }}\Binary\x64\
+
       - name: "Build Replay Manager"
         working-directory: ${{ github.workspace }}
         shell: cmd
@@ -138,6 +156,7 @@ jobs:
           msbuild /p:Configuration=Release /p:Platform="Any CPU" "${{ github.workspace }}\Dolphin-Replay-Manager\Bird's Replay Manager.sln"
           cd "Bird's Replay Manager\bin\Release"
           copy /b /v /y "Bird's Replay Manager.exe" ${{ github.workspace }}\Binary\x64\
+
       - name: "Prepare Artifact"
         working-directory: ${{ github.workspace }}
         shell: cmd
@@ -152,6 +171,7 @@ jobs:
           copy /b /v /y ".\Song List.txt" .\Binary\x64\
           copy /b /v /y .\tags.txt .\Binary\x64\
           copy /b /v /y .\vcruntime140_1.dll .\Binary\x64\
+
       - name: "Package Artifact"
         working-directory: ${{ github.workspace }}
         run: |
@@ -160,6 +180,7 @@ jobs:
           cd .\Binary\x64\
           7z a $FILE_NAME .\*
           move $FILE_NAME ..\..\artifact\
+
       - name: "Create Release"
         id: create_release
         uses: actions/create-release@v1
@@ -171,12 +192,14 @@ jobs:
           body: "${{ steps.birdbuild_changelog.outputs.prop }} \n${{ steps.pplus_changelog.outputs.prop }}"
           draft: false
           prerelease: false
+
       - name: "Publish"
         if: success()
         uses: actions/upload-artifact@v2-preview
         with:
           name: "Bird Build"
           path: "./artifact/"
+
       - name: Upload Release
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
@@ -184,6 +207,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}
+          asset_path: "${{ github.workspace }}/Bird Build.zip"
           asset_name: "Bird Build.zip"
           asset_content_type: application/zip
