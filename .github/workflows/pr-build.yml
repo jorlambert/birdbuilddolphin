@@ -52,7 +52,7 @@ jobs:
         with:
           value: ${{steps.birdbuild_version.outputs.prop}}
           index_of_str: "Bird Build "
-          length_from_start: 16
+          length_from_end: 10
       - run: |
           echo ${{steps.birdbuild_id.outputs.substring}}
       - name: "Get Bird Build Changelog"
