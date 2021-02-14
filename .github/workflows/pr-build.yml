@@ -51,10 +51,17 @@ jobs:
         uses: bhowell2/github-substring-action@v1.0.0
         with:
           value: ${{steps.birdbuild_version.outputs.prop}}
-          length_from_end: 10
-          index_of_str: " BETA"
+          length_from_start: 16
       - run: |
           echo ${{steps.birdbuild_id.outputs.substring}}
+      - name: "Get Bird Build ID substring"
+        id: birdbuild_id2
+        uses: bhowell2/github-substring-action@v1.0.0
+        with:
+          value: ${{steps.birdbuild_id.outputs.substring}}
+          length_from_end: 5
+      - run: |
+          echo ${{steps.birdbuild_id2.outputs.substring}}
       - name: "Get Bird Build Changelog"
         id: birdbuild_changelog
         uses: notiz-dev/github-action-json-property@release
@@ -165,7 +172,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: "${{ steps.birdbuild_id.outputs.substring }}"
+          tag_name: "${{ steps.birdbuild_id2.outputs.substring }}"
           release_name: "${{ steps.birdbuild_version.outputs.prop }}"
           body: "${{ steps.birdbuild_changelog.outputs.prop }} \n${{ steps.pplus_changelog.outputs.prop }}"
           draft: false
