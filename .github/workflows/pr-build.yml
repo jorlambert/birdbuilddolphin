@@ -51,8 +51,8 @@ jobs:
         uses: bhowell2/github-substring-action@v1.0.0
         with:
           value: ${{steps.birdbuild_version.outputs.prop}}
-          index_of_str: " BETA"
           length_from_end: 10
+          index_of_str: " BETA"
       - run: |
           echo ${{steps.birdbuild_id.outputs.substring}}
       - name: "Get Bird Build Changelog"
