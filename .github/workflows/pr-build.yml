@@ -16,33 +16,19 @@ jobs:
       DXSDK_DIR: "C:\\Program Files (x86)\\Microsoft DirectX SDK (June 2010)\\"
     name: "Windows Dolphin"
     runs-on: windows-2019
-    outputs:
-      matrix: ${{ steps.pplus_ver.outputs.matrix }}
     steps:
-      - id: pplus_ver
+      - name: "Get PPlus Version"
         run: |
-          content=`cat https://projectplusgame.com/update.json`
-          # the following lines are only required for multi line json
-          content="${content//'%'/'%25'}"
-          content="${content//$'\n'/'%0A'}"
-          content="${content//$'\r'/'%0D'}"
-          # end of optional handling for multi line json
-          echo "::set-output name=packageJson::$content"
-      - run: |
-          echo "PPlusVersion=${{fromJson(steps.pplus_ver.outputs.packageJson).version}}" >> $GITHUB_ENV
-          echo "PPlusChangelog=${{fromJson(steps.pplus_ver.outputs.packageJson).changelog}}" >> $GITHUB_ENV
-      - id: birdbuild_ver
+          PPlusVersion="${{ env.PPlusVersion }}" && echo $PPlusVersion \ &&
+          curl -X POST -H 'Content-type: application/json' --data "{"version":$PPlusVersion}" https://projectplusgame.com/update.json
+          PPlusChangelog="${{ env.PPlusChangelog }}" && echo $PPlusChangelog \ &&
+          curl -X POST -H 'Content-type: application/json' --data "{"changelog":$PPlusChangelog}" https://projectplusgame.com/update.json
+      - id: "Get Bird Build Version"
         run: |
-          content=`cat https://raw.githubusercontent.com/jlambert360/birdthulu.github.io/master/birdbuild.json`
-          # the following lines are only required for multi line json
-          content="${content//'%'/'%25'}"
-          content="${content//$'\n'/'%0A'}"
-          content="${content//$'\r'/'%0D'}"
-          # end of optional handling for multi line json
-          echo "::set-output name=packageJson::$content"
-      - run: |
-          echo "BirdBuildVersion=${{fromJson(steps.birdbuild_ver.outputs.packageJson).version}}" >> $GITHUB_ENV
-          echo "BirdBuildChangelog=${{fromJson(steps.birdbuild_ver.outputs.packageJson).changelog}}" >> $GITHUB_ENV
+          BirdBuildVersion="${{ env.BirdBuildVersion }}" && echo $BirdBuildVersion \ &&
+          curl -X POST -H 'Content-type: application/json' --data "{"version":$BirdBuildVersion}" https://raw.githubusercontent.com/jlambert360/birdthulu.github.io/master/birdbuild.json
+          BirdBuildChangelog="${{ env.BirdBuildChangelog }}" && echo $BirdBuildChangelog \ &&
+          curl -X POST -H 'Content-type: application/json' --data "{"changelog":$BirdBuildChangelog}" https://raw.githubusercontent.com/jlambert360/birdthulu.github.io/master/birdbuild.json
       - name: "Checkout"
         uses: actions/checkout@v2.3.1
       - name: "Remove Redistributable"
