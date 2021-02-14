@@ -51,7 +51,7 @@ jobs:
         uses: bhowell2/github-substring-action@v1.0.0
         with:
           value: ${{steps.birdbuild_version.outputs.prop}}
-          index_of_str: "Bird Build "
+          index_of_str: " BETA"
           length_from_end: 10
       - run: |
           echo ${{steps.birdbuild_id.outputs.substring}}
