@@ -152,8 +152,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.BirdBuildVersion }}
-          release_name: Release ${{ env.BirdBuildVersion }}
+          tag_name: "${{ env.BirdBuildVersion }}"
+          release_name: "Release ${{ env.BirdBuildVersion }}"
           body: "${{ env.BirdBuildChangelog }} \n${{ env.PPlusChangelog }}"
           draft: false
           prerelease: false
