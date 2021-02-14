@@ -23,28 +23,28 @@ jobs:
         with:
           path: 'https://projectplusgame.com/update.json'
           prop_path: 'version'
-      - run: echo "PPlusVersion=${{staps.pplus_version.outputs.prop}}" >> $GITHUB_ENV
+      - run: echo "PPlusVersion=${{steps.pplus_version.outputs.prop}}" >> $GITHUB_ENV
       - name: "Get PPlus Changelog"
         id: pplus_changelog
         uses: notiz-dev/github-action-json-property@release
         with:
           path: 'https://projectplusgame.com/update.json'
           prop_path: 'changelog'
-      - run: echo "PPlusChangelog=${{staps.pplus_changelog.outputs.prop}}" >> $GITHUB_ENV
+      - run: echo "PPlusChangelog=${{steps.pplus_changelog.outputs.prop}}" >> $GITHUB_ENV
       - name: "Get Bird Build Version"
         id: birdbuild_version
         uses: notiz-dev/github-action-json-property@release
         with:
           path: 'https://raw.githubusercontent.com/jlambert360/birdthulu.github.io/master/birdbuild.json'
           prop_path: 'version'
-      - run: echo "BirdBuildVersion=${{staps.birdbuild_version.outputs.prop}}" >> $GITHUB_ENV
+      - run: echo "BirdBuildVersion=${{steps.birdbuild_version.outputs.prop}}" >> $GITHUB_ENV
       - name: "Get Bird Build Changelog"
         id: birdbuild_changelog
         uses: notiz-dev/github-action-json-property@release
         with:
           path: 'https://raw.githubusercontent.com/jlambert360/birdthulu.github.io/master/birdbuild.json'
           prop_path: 'changelog'
-      - run: echo "BirdBuildChangelog=${{staps.birdbuild_changelog.outputs.prop}}" >> $GITHUB_ENV
+      - run: echo "BirdBuildChangelog=${{steps.birdbuild_changelog.outputs.prop}}" >> $GITHUB_ENV
       - name: "Checkout"
         uses: actions/checkout@v2.3.1
       - name: "Remove Redistributable"
