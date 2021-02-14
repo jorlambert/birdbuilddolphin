@@ -28,7 +28,7 @@ jobs:
         with:
           path: 'update.json'
           prop_path: 'version'
-        run: echo ${{steps.pplus_version.outputs.prop}}
+      - run: echo ${{steps.pplus_version.outputs.prop}}
         env:
           PPlusVersion: ${{steps.pplus_version.outputs.prop}}
       - name: "Get PPlus Changelog"
@@ -37,7 +37,7 @@ jobs:
         with:
           path: 'update.json'
           prop_path: 'changelog'
-        run: echo ${{steps.pplus_changelog.outputs.prop}}
+      - run: echo ${{steps.pplus_changelog.outputs.prop}}
         env:
           PPlusChangelog: ${{steps.pplus_changelog.outputs.prop}}
       - name: "Get Bird Build Version"
@@ -46,7 +46,7 @@ jobs:
         with:
           path: 'birdbuild.json'
           prop_path: 'version'
-        run: echo ${{steps.birdbuild_version.outputs.prop}}
+      - run: echo ${{steps.birdbuild_version.outputs.prop}}
         env:
           BirdBuildVersion: ${{steps.birdbuild_version.outputs.prop}}
       - name: "Get Bird Build Changelog"
@@ -55,7 +55,7 @@ jobs:
         with:
           path: 'birdbuild.json'
           prop_path: 'changelog'
-        run: echo ${{steps.birdbuild_changelog.outputs.prop}}
+      - run: echo ${{steps.birdbuild_changelog.outputs.prop}}
         env:
           BirdBuildChangelog: ${{steps.birdbuild_changelog.outputs.prop}}
       - name: "Checkout"
