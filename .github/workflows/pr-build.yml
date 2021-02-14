@@ -51,7 +51,7 @@ jobs:
         uses: bluwy/substitute-string-action@v1
         with:
           _input-text: '${{steps.birdbuild_version.outputs.prop}}'
-          Bird Build: ""
+          "Bird Build": ""
       - run: |
           echo ${{ steps.birdbuild_id.outputs.result }}
       - name: "Get Bird Build ID Substring"
