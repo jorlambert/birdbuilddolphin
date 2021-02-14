@@ -48,7 +48,7 @@ jobs:
           echo ${{steps.birdbuild_version.outputs.prop}}
       - name: "Get Bird Build ID"
         id: birdbuild_id
-        uses: bhowell2/github-substring-action@release
+        uses: bhowell2/github-substring-action@v1.0.0
         with:
           value: ${{steps.birdbuild_version.outputs.prop}}
           index_of_str: "Bird Build "
