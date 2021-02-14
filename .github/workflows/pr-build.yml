@@ -172,7 +172,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: "${{ steps.birdbuild_id2.outputs.result }}"
+          tag_name: "${{ steps.birdbuild_id2.outputs.substring }}"
           release_name: "${{ steps.birdbuild_version.outputs.prop }}"
           body: "${{ steps.birdbuild_changelog.outputs.prop }} \n${{ steps.pplus_changelog.outputs.prop }}"
           draft: false
