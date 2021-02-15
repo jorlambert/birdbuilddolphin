@@ -166,6 +166,15 @@ jobs:
           draft: false
           prerelease: false
 
+      - name: Rollback Release
+        if: failure() && steps.create_release.outputs.id != ''
+        uses: author/action-rollback@stable
+        with:
+          id: ${{ steps.create_release.id }}
+          tag: ${{ steps.birdbuild_id2.outputs.substring }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload Release
         if: success()
         id: upload-release-asset 
@@ -177,15 +186,6 @@ jobs:
           asset_path: "${{ github.workspace }}/artifact/Bird Build.zip"
           asset_name: "Bird Build.zip"
           asset_content_type: application/zip
-
-      - name: Rollback Release
-        if: failure() && steps.create_release.outputs.id != ''
-        uses: author/action-rollback@stable
-        with:
-          id: ${{ steps.create_release.id }}
-          tag: ${{ steps.birdbuild_id2.outputs.substring }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Publish"
         if: success()
