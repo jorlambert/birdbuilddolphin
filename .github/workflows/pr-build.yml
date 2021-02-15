@@ -178,13 +178,6 @@ jobs:
           asset_name: "Bird Build.zip"
           asset_content_type: application/zip
 
-      - name: "Publish"
-        if: success()
-        uses: actions/upload-artifact@v2-preview
-        with:
-          name: "Bird Build"
-          path: "./artifact/"
-
       - name: Rollback Release
         if: failure() && steps.create_release.outputs.id != ''
         uses: author/action-rollback@stable
@@ -193,3 +186,10 @@ jobs:
           tag: ${{ steps.birdbuild_id2.outputs.substring }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Publish"
+        if: success()
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: "Bird Build"
+          path: "./artifact/"
