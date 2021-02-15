@@ -154,6 +154,14 @@ jobs:
           7z a $FILE_NAME .\*
           move $FILE_NAME ..\..\artifact\
 
+      - name: Delete Release
+        uses: dev-drprasad/delete-tag-and-release@v0.1.3
+        with:
+          delete_release: true
+          tag_name: ${{ steps.birdbuild_id2.outputs.substring }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: "Create Release"
         id: create_release
         uses: actions/create-release@v1
@@ -165,15 +173,6 @@ jobs:
           body: "${{steps.birdbuild_version.outputs.prop}}"
           draft: false
           prerelease: false
-
-      - name: Rollback Release
-        if: failure() && steps.create_release.outputs.id != ''
-        uses: author/action-rollback@stable
-        with:
-          id: ${{ steps.create_release.id }}
-          tag: ${{ steps.birdbuild_id2.outputs.substring }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Release
         if: success()
