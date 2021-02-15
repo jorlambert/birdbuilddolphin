@@ -101,7 +101,7 @@ jobs:
         shell: cmd
         run: |
           msbuild /p:Configuration=Release /p:Platform=x64 "${{ github.workspace }}\Ishiiruka\Source\Dolphin.sln"
-          copy /b /v /y ${{ github.workspace }}\Ishiiruka\Binary\x64\Dolphin.exe ${{ github.workspace }}\Binary\x64\
+          copy /b /v /y .\Ishiiruka\Binary\x64\Dolphin.exe ${{ github.workspace }}\Binary\x64\
 
       - name: "Setup Nuget.exe"
         uses: nuget/setup-nuget@v1
@@ -116,7 +116,7 @@ jobs:
           cd FPM-Win-Updater
           nuget restore ${{ github.workspace }}\FPM-Win-Updater\DolphinUpdater.sln
           msbuild /p:Configuration=Release /p:Platform="Any CPU" ${{ github.workspace }}\FPM-Win-Updater\DolphinUpdater.sln
-          copy /b /v /y ${{ github.workspace }}\DolphinUpdater\bin\Release\Updater.exe ${{ github.workspace }}\Binary\x64\
+          copy /b /v /y .\DolphinUpdater\bin\Release\Updater.exe ${{ github.workspace }}\Binary\x64\
 
       - name: "Build Replay Manager"
         working-directory: ${{ github.workspace }}
@@ -125,7 +125,7 @@ jobs:
           git clone https://github.com/Birdthulu/Dolphin-Replay-Manager
           cd Dolphin-Replay-Manager
           msbuild /p:Configuration=Release /p:Platform="Any CPU" "${{ github.workspace }}\Dolphin-Replay-Manager\Bird's Replay Manager.sln"
-          copy /b /v /y "${{ github.workspace }}\Bird's Replay Manager\bin\Release\Bird's Replay Manager.exe" ${{ github.workspace }}\Binary\x64\
+          copy /b /v /y ".\Bird's Replay Manager\bin\Release\Bird's Replay Manager.exe" ${{ github.workspace }}\Binary\x64\
 
       - name: "Prepare Artifact"
         working-directory: ${{ github.workspace }}
